@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raksha Bandhan Greeting</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fff5f5, #f8f0ff, #f0f5ff);
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+            overflow-x: hidden;
+            animation: gradientBG 15s ease infinite;
+            background-size: 300% 300%;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .greeting-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            text-align: center;
+        }
+        
+        .greeting-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #ff8e8e, #ffb3b3, #ff8e8e, #ff6b6b);
+            animation: rainbowBorder 3s linear infinite;
+            background-size: 200% 100%;
+        }
+        
+        @keyframes rainbowBorder {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+        h1 {
+            font-size: 28px;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            font-family: 'Pacifico', cursive;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .greeting-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.2);
+            border: 3px solid #ffb6c1;
+        }
+        
+        .greeting-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .greeting-message {
+            color: #555;
+            margin: 20px 0;
+            line-height: 1.7;
+            font-size: 17px;
+            white-space: pre-line;
+        }
+        
+        .sender-name {
+            font-weight: 600;
+            color: #ff6b6b;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        .btn-gift {
+            cursor: pointer;
+            width: 200px;
+            height: 45px;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(45deg, #ffcc00, #ff9500);
+            color: white;
+            margin: 20px auto 0;
+        }
+        
+        .btn-gift:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-gift:active {
+            transform: translateY(1px);
+        }
+        
+        /* Floating elements */
+        .floating {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.7;
+            z-index: -1;
+            animation: floating 10s infinite linear;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+        
+        /* Create new button */
+        .create-new {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, #3399ff, #0066cc);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+        
+        .create-new:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .greeting-card {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .greeting-image {
+                width: 170px;
+                height: 170px;
+            }
+            
+            .create-new {
+                bottom: 10px;
+                left: 10px;
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating decorative elements -->
+    <div id="floatingElements"></div>
+    
+    <!-- Create new greeting button -->
+    <button class="create-new" id="createNewBtn">Create Your Own Greeting</button>
+    
+    <div class="greeting-card">
+        <h1>Happy Raksha Bandhan!</h1>
+        
+        <div class="greeting-image">
+            <img id="displayImage" src="" alt="Greeting Image">
+        </div>
+        
+        <div class="greeting-message" id="displayMessage"></div>
+        <div class="sender-name" id="displaySender"></div>
+        
+        <button class="btn-gift" id="amazonGiftBtn">🎁 Buy a Gift for Your Sister</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create floating elements
+            const floatingElements = document.getElementById('floatingElements');
+            const symbols = ['❤️', '✨', '🌸', '🎀', '💖', '🌹', '🥰', '💫'];
+            
+            for (let i = 0; i < 15; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating';
+                element.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                element.style.left = Math.random() * 100 + 'vw';
+                element.style.top = Math.random() * 100 + 'vh';
+                element.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                element.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                element.style.animationDelay = (Math.random() * 5) + 's';
+                floatingElements.appendChild(element);
+            }
+            
+            // Get greeting data from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const greetingData = urlParams.get('greeting');
+            console.log(greetingData);
+            
+            
+            if (greetingData) {
+                try {
+                    const data = JSON.parse(decodeURIComponent(greetingData));
+                    
+                    // Display the received greeting
+                    if (data.image) {
+                        document.getElementById('displayImage').src = data.image;
+                    } else {
+                        // Use default image if none was shared
+                        document.getElementById('displayImage').src = 'https://i.ibb.co/4W2yXyN/rakhi.png';
+                    }
+                    
+                    document.getElementById('displayMessage').textContent = data.message;
+                    document.getElementById('displaySender').textContent = `From: ${data.sender}`;
+                    
+                } catch (e) {
+                    console.error('Error parsing greeting data:', e);
+                    // Show default message if there's an error
+                    document.getElementById('displayImage').src = 'https://i.ibb.co/4W2yXyN/rakhi.png';
+                    document.getElementById('displayMessage').textContent = 'Wishing you a very Happy Raksha Bandhan!';
+                    document.getElementById('displaySender').textContent = 'From: Someone who cares';
+                }
+            } else {
+                // Show default message if no greeting data
+                document.getElementById('displayImage').src = 'https://i.ibb.co/4W2yXyN/rakhi.png';
+                document.getElementById('displayMessage').textContent = 'Wishing you a very Happy Raksha Bandhan!';
+                document.getElementById('displaySender').textContent = 'From: Someone who cares';
+            }
+            
+            // Amazon gift button
+            document.getElementById('amazonGiftBtn').addEventListener('click', function() {
+                window.open('https://www.amazon.in/s?k=rakhi+gifts+for+sister&ref=nb_sb_noss_2', '_blank');
+            });
+            
+            // Create new greeting button
+            document.getElementById('createNewBtn').addEventListener('click', function() {
+                window.location.href = 'creator.html';
+            });
+            
+            // Add confetti effect
+            function createConfetti() {
+                const colors = ['#ff6b6b', '#ff8e8e', '#ffb3b3', '#ffcc00', '#25D366', '#3399ff'];
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.borderRadius = '50%';
+                confetti.style.zIndex = '5';
+                confetti.style.opacity = '0.8';
+                
+                document.body.appendChild(confetti);
+                
+                const animationDuration = Math.random() * 3 + 2;
+                
+                setTimeout(() => {
+                    confetti.style.transition = `top ${animationDuration}s linear, opacity ${animationDuration}s ease`;
+                    confetti.style.top = '100vh';
+                    confetti.style.opacity = '0';
+                }, 10);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, animationDuration * 1000);
+            }
+            
+            // Initial confetti
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createConfetti, i * 100);
+            }
+            
+            // Continuous confetti
+            setInterval(() => {
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(createConfetti, i * 100);
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
