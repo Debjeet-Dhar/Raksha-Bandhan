@@ -565,48 +565,40 @@
 });
             
             // Modal share button
-            document.getElementById('modalShareBtn').addEventListener('click', function () {
-        const name = (document.getElementById('nameInput').value || 'Your loved one').trim();
-        const message = (document.getElementById('text').value || 'Wishing you a very Happy Raksha Bandhan!').trim();
-        const imageSrc = document.getElementById('previewImage').src;
+    document.getElementById('modalShareBtn').addEventListener('click', function () {
+    const name = (document.getElementById('nameInput').value || 'Your loved one').trim();
+    const message = (document.getElementById('text').value || 'Wishing you a very Happy Raksha Bandhan!').trim();
+    const imageSrc = previewImage.src;
 
-        const greetingData = {
-            image: imageSrc || 'https://mahavasturemedies.com/cdn/shop/articles/Rakshabandhan_4.png?v=1738819405&width=1400',
-            message: message,
-            sender: name
-        };
+    const greetingData = {
+        image: imageSrc || 'https://mahavasturemedies.com/cdn/shop/articles/Rakshabandhan_4.png?v=1738819405&width=1400',
+        message: message,
+        sender: name
+    };
 
-        const encodedData = encodeURIComponent(JSON.stringify(greetingData));
+    const encodedData = encodeURIComponent(JSON.stringify(greetingData));
 
-        // Build the full viewer URL
-        const baseUrl = window.location.origin + window.location.pathname.replace(/[^\/]*$/, '');
-        const viewerUrl = `${baseUrl}viewer.html?greeting=${encodedData}`;
+    // Build the full viewer URL
+    const baseUrl = window.location.origin + window.location.pathname.replace(/[^\/]*$/, '');
+    const viewerUrl = `${baseUrl}viewer.html?greeting=${encodedData}`;
 
-        const shareTextBase = `🎀 *Happy Raksha Bandhan!* 🎀\n\nFrom: ${name}\n\n${message}\n\nView your special card: `;
-
-        // If URL is very long, skip shortening attempt
-        if (viewerUrl.length > 1800) {
-            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareTextBase + viewerUrl)}`;
+    // ✅ Use is.gd shortener (CORS-free)
+    fetch(`https://is.gd/create.php?format=simple&url=${encodeURIComponent(viewerUrl)}`)
+        .then(res => res.text())
+        .then(shortUrl => {
+            const shareText = `🎀 *Happy Raksha Bandhan!* 🎀\n\nFrom: ${name}\n\n${message}\n\nView your special card: ${shortUrl}`;
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
             window.open(whatsappUrl, '_blank');
-            return;
-        }
+        })
+        .catch(() => {
+            // If shortening fails, fall back to long link
+            const shareText = `🎀 *Happy Raksha Bandhan!* 🎀\n\nFrom: ${name}\n\n${message}\n\nView your special card: ${viewerUrl}`;
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+});
 
-        // Try to shorten with TinyURL
-        fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(viewerUrl)}`)
-            .then(res => res.text())
-            .then(shortUrl => {
-                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareTextBase + shortUrl)}`;
-                window.open(whatsappUrl, '_blank');
-            })
-            .catch(() => {
-                // Fallback: use full link
-                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareTextBase + viewerUrl)}`;
-                window.open(whatsappUrl, '_blank');
-            });
-    });
-
-    // ... (rest of your code)
-});       
+            
             // Close modal
             document.getElementById('closeModal').addEventListener('click', function() {
                 document.getElementById('previewModal').style.display = 'none';
@@ -666,6 +658,7 @@
                     setTimeout(createConfetti, i * 100);
                 }
             }, 3000);
+        });
     </script>
 </body>
 </html>
