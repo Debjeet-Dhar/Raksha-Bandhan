@@ -473,192 +473,177 @@
         Your browser does not support the audio element.
     </audio>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create floating elements
-            const floatingElements = document.getElementById('floatingElements');
-            const symbols = ['❤️', '✨', '🌸', '🎀', '💖', '🌹', '🥰', '💫'];
-            
-            for (let i = 0; i < 15; i++) {
-                const element = document.createElement('div');
-                element.className = 'floating';
-                element.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-                element.style.left = Math.random() * 100 + 'vw';
-                element.style.top = Math.random() * 100 + 'vh';
-                element.style.fontSize = (Math.random() * 20 + 15) + 'px';
-                element.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                element.style.animationDelay = (Math.random() * 5) + 's';
-                floatingElements.appendChild(element);
-            }
-            
-            // Image upload functionality
-            const imageUpload = document.getElementById('imageUpload');
-            const previewImage = document.getElementById('previewImage');
-            const uploadLabel = document.querySelector('.upload-label');
-            
-            imageUpload.addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(event) {
-                        previewImage.src = event.target.result;
-                        previewImage.style.display = 'block';
-                        uploadLabel.style.display = 'none';
-                    }
-                    reader.readAsDataURL(file);
-                }
-            });
-            
-            // Music functionality with autoplay
-            const musicToggle = document.getElementById('musicToggle');
-            const backgroundMusic = document.getElementById('backgroundMusic');
-            
-            // Try to autoplay when user interacts with the page
-            function enableAutoplay() {
-                const promise = backgroundMusic.play();
-                if (promise !== undefined) {
-                    promise.catch(error => {
-                        // Autoplay was prevented
-                        musicToggle.textContent = '🔇';
-                    });
-                }
-            }
-            
-            // Set up event listeners for user interaction
-            document.addEventListener('click', function firstInteraction() {
-                enableAutoplay();
-                document.removeEventListener('click', firstInteraction);
-            }, { once: true });
-            
-            // Toggle button functionality
-            musicToggle.addEventListener('click', function() {
-                if (backgroundMusic.paused) {
-                    backgroundMusic.play();
-                    musicToggle.textContent = '🎵';
-                } else {
-                    backgroundMusic.pause();
-                    musicToggle.textContent = '🔇';
-                }
-            });
-            
-            // Button functionality
-            document.getElementById('buyGiftBtn').addEventListener('click', function() {
-                window.open('https://www.amazon.in/s?k=rakhi+gifts&ref=nb_sb_noss_2', '_blank');
-            });
-            
-            // Share button functionality
-            document.getElementById('shareBtn').addEventListener('click', function () {
-    const name = (document.getElementById('nameInput').value || 'Your loved one').trim();
-    const message = (document.getElementById('text').value || 'Wishing you a very Happy Raksha Bandhan!').trim();
-    const imageSrc = previewImage.src;
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Create floating elements
+    const floatingElements = document.getElementById('floatingElements');
+    const symbols = ['❤️', '✨', '🌸', '🎀', '💖', '🌹', '🥰', '💫'];
 
-    const modalImage = document.getElementById('modalImage');
-    if (imageSrc) {
-        modalImage.src = imageSrc;
-        modalImage.style.display = 'block';
-    } else {
-        modalImage.style.display = 'none';
+    for (let i = 0; i < 15; i++) {
+        const element = document.createElement('div');
+        element.className = 'floating';
+        element.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        element.style.left = Math.random() * 100 + 'vw';
+        element.style.top = Math.random() * 100 + 'vh';
+        element.style.fontSize = (Math.random() * 20 + 15) + 'px';
+        element.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        element.style.animationDelay = (Math.random() * 5) + 's';
+        floatingElements.appendChild(element);
     }
 
-    document.getElementById('modalMessage').textContent = `${message}\n\n- ${name}`;
-    document.getElementById('previewModal').style.display = 'flex';
-});
-            
-            // Modal share button
+    // Image upload
+    const imageUpload = document.getElementById('imageUpload');
+    const previewImage = document.getElementById('previewImage');
+    const uploadLabel = document.querySelector('.upload-label');
+
+    imageUpload.addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                previewImage.src = event.target.result;
+                previewImage.style.display = 'block';
+                uploadLabel.style.display = 'none';
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Music autoplay
+    const musicToggle = document.getElementById('musicToggle');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+
+    function enableAutoplay() {
+        const promise = backgroundMusic.play();
+        if (promise !== undefined) {
+            promise.catch(() => {
+                musicToggle.textContent = '🔇';
+            });
+        }
+    }
+
+    document.addEventListener('click', function firstInteraction() {
+        enableAutoplay();
+        document.removeEventListener('click', firstInteraction);
+    }, { once: true });
+
+    musicToggle.addEventListener('click', function () {
+        if (backgroundMusic.paused) {
+            backgroundMusic.play();
+            musicToggle.textContent = '🎵';
+        } else {
+            backgroundMusic.pause();
+            musicToggle.textContent = '🔇';
+        }
+    });
+
+    // Buy gift
+    document.getElementById('buyGiftBtn').addEventListener('click', function () {
+        window.open('https://www.amazon.in/s?k=rakhi+gifts&ref=nb_sb_noss_2', '_blank');
+    });
+
+    // Share button
+    document.getElementById('shareBtn').addEventListener('click', function () {
+        const name = (document.getElementById('nameInput').value || 'Your loved one').trim();
+        const message = (document.getElementById('text').value || 'Wishing you a very Happy Raksha Bandhan!').trim();
+        const imageSrc = previewImage.src;
+
+        const modalImage = document.getElementById('modalImage');
+        if (imageSrc) {
+            modalImage.src = imageSrc;
+            modalImage.style.display = 'block';
+        } else {
+            modalImage.style.display = 'none';
+        }
+
+        document.getElementById('modalMessage').textContent = `${message}\n\n- ${name}`;
+        document.getElementById('previewModal').style.display = 'flex';
+    });
+
+    // Shorten URL function using AllOrigins proxy
+    function shortenURL(longUrl) {
+        const encodedLongUrl = encodeURIComponent(longUrl);
+        const apiUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(`https://is.gd/create.php?format=simple&url=${encodedLongUrl}`)}`;
+        return fetch(apiUrl).then(res => res.text()).catch(() => longUrl);
+    }
+
+    // Modal share
     document.getElementById('modalShareBtn').addEventListener('click', function () {
-    const name = (document.getElementById('nameInput').value || 'Your loved one').trim();
-    const message = (document.getElementById('text').value || 'Wishing you a very Happy Raksha Bandhan!').trim();
-    const imageSrc = previewImage.src;
+        const name = (document.getElementById('nameInput').value || 'Your loved one').trim();
+        const message = (document.getElementById('text').value || 'Wishing you a very Happy Raksha Bandhan!').trim();
+        const imageSrc = previewImage.src;
 
-    const greetingData = {
-        image: imageSrc || 'https://mahavasturemedies.com/cdn/shop/articles/Rakshabandhan_4.png?v=1738819405&width=1400',
-        message: message,
-        sender: name
-    };
+        const greetingData = {
+            image: imageSrc || 'https://mahavasturemedies.com/cdn/shop/articles/Rakshabandhan_4.png?v=1738819405&width=1400',
+            message: message,
+            sender: name
+        };
 
-    const encodedData = encodeURIComponent(JSON.stringify(greetingData));
+        const encodedData = encodeURIComponent(JSON.stringify(greetingData));
+        const baseUrl = window.location.origin + window.location.pathname.replace(/[^\/]*$/, '');
+        const viewerUrl = `${baseUrl}viewer.html?greeting=${encodedData}`;
 
-    // Build the full viewer URL
-    const baseUrl = window.location.origin + window.location.pathname.replace(/[^\/]*$/, '');
-    const viewerUrl = `${baseUrl}viewer.html?greeting=${encodedData}`;
-
-    // ✅ Use is.gd shortener (CORS-free)
-    fetch(`https://is.gd/create.php?format=simple&url=${encodeURIComponent(viewerUrl)}`)
-        .then(res => res.text())
-        .then(shortUrl => {
+        shortenURL(viewerUrl).then(shortUrl => {
             const shareText = `🎀 *Happy Raksha Bandhan!* 🎀\n\nFrom: ${name}\n\n${message}\n\nView your special card: ${shortUrl}`;
             const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
             window.open(whatsappUrl, '_blank');
-        })
-        .catch(() => {
-            // If shortening fails, fall back to long link
-            const shareText = `🎀 *Happy Raksha Bandhan!* 🎀\n\nFrom: ${name}\n\n${message}\n\nView your special card: ${viewerUrl}`;
-            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
-            window.open(whatsappUrl, '_blank');
         });
-});
+    });
 
-            
-            // Close modal
-            document.getElementById('closeModal').addEventListener('click', function() {
-                document.getElementById('previewModal').style.display = 'none';
-            });
-            
-            // Try UI button - shows sample data
-            document.getElementById('tryBtn').addEventListener('click', function() {
-                document.getElementById('nameInput').value = 'Priya';
-                document.getElementById('text').value = 'Dear brother, wishing you a very Happy Rakhi! May our bond grow stronger with each passing year. Love you always!';
-                
-                // Set a sample image
-                previewImage.src = 'https://mahavasturemedies.com/cdn/shop/articles/Rakshabandhan_4.png?v=1738819405&width=1400';
-                previewImage.style.display = 'block';
-                uploadLabel.style.display = 'none';
-                
-                // Show success message
-                alert('Sample data loaded! Now you can try the Share feature.');
-            });
-            
-            // Add confetti effect
-            function createConfetti() {
-                const colors = ['#ff6b6b', '#ff8e8e', '#ffb3b3', '#ffcc00', '#25D366', '#3399ff'];
-                const confetti = document.createElement('div');
-                confetti.style.position = 'fixed';
-                confetti.style.width = (Math.random() * 10 + 5) + 'px';
-                confetti.style.height = (Math.random() * 10 + 5) + 'px';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.top = '-10px';
-                confetti.style.borderRadius = '50%';
-                confetti.style.zIndex = '5';
-                confetti.style.opacity = '0.8';
-                
-                document.body.appendChild(confetti);
-                
-                const animationDuration = Math.random() * 3 + 2;
-                
-                setTimeout(() => {
-                    confetti.style.transition = `top ${animationDuration}s linear, opacity ${animationDuration}s ease`;
-                    confetti.style.top = '100vh';
-                    confetti.style.opacity = '0';
-                }, 10);
-                
-                setTimeout(() => {
-                    confetti.remove();
-                }, animationDuration * 1000);
-            }
-            
-            // Initial confetti
-            for (let i = 0; i < 20; i++) {
-                setTimeout(createConfetti, i * 100);
-            }
-            
-            // Continuous confetti
-            setInterval(() => {
-                for (let i = 0; i < 5; i++) {
-                    setTimeout(createConfetti, i * 100);
-                }
-            }, 3000);
-        });
-    </script>
+    // Close modal
+    document.getElementById('closeModal').addEventListener('click', function () {
+        document.getElementById('previewModal').style.display = 'none';
+    });
+
+    // Try button
+    document.getElementById('tryBtn').addEventListener('click', function () {
+        document.getElementById('nameInput').value = 'Priya';
+        document.getElementById('text').value = 'Dear brother, wishing you a very Happy Rakhi! May our bond grow stronger with each passing year. Love you always!';
+        previewImage.src = 'https://mahavasturemedies.com/cdn/shop/articles/Rakshabandhan_4.png?v=1738819405&width=1400';
+        previewImage.style.display = 'block';
+        uploadLabel.style.display = 'none';
+        alert('Sample data loaded! Now you can try the Share feature.');
+    });
+
+    // Confetti effect
+    function createConfetti() {
+        const colors = ['#ff6b6b', '#ff8e8e', '#ffb3b3', '#ffcc00', '#25D366', '#3399ff'];
+        const confetti = document.createElement('div');
+        confetti.style.position = 'fixed';
+        confetti.style.width = (Math.random() * 10 + 5) + 'px';
+        confetti.style.height = (Math.random() * 10 + 5) + 'px';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = '-10px';
+        confetti.style.borderRadius = '50%';
+        confetti.style.zIndex = '5';
+        confetti.style.opacity = '0.8';
+
+        document.body.appendChild(confetti);
+
+        const animationDuration = Math.random() * 3 + 2;
+        setTimeout(() => {
+            confetti.style.transition = `top ${animationDuration}s linear, opacity ${animationDuration}s ease`;
+            confetti.style.top = '100vh';
+            confetti.style.opacity = '0';
+        }, 10);
+
+        setTimeout(() => {
+            confetti.remove();
+        }, animationDuration * 1000);
+    }
+
+    for (let i = 0; i < 20; i++) {
+        setTimeout(createConfetti, i * 100);
+    }
+
+    setInterval(() => {
+        for (let i = 0; i < 5; i++) {
+            setTimeout(createConfetti, i * 100);
+        }
+    }, 3000);
+});
+</script>
 </body>
 </html>
+
